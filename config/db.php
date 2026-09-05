@@ -63,6 +63,23 @@ function initialize_database(PDO $pdo): void
         }
     }
 
+    $joeyPhotoMigration = '20260905_joey_miller_photo';
+    $joeyPhotoCheck = $pdo->prepare('SELECT 1 FROM app_migrations WHERE migration_key = ?');
+    $joeyPhotoCheck->execute([$joeyPhotoMigration]);
+    if (!$joeyPhotoCheck->fetchColumn()) {
+        $pdo->beginTransaction();
+        try {
+            $updateJoeyPhoto = $pdo->prepare('UPDATE officers SET image_path = ? WHERE name = ?');
+            $updateJoeyPhoto->execute(['assets/images/officers/joey-miller.webp', 'Joey Miller']);
+            $recordJoeyPhoto = $pdo->prepare('INSERT INTO app_migrations (migration_key) VALUES (?)');
+            $recordJoeyPhoto->execute([$joeyPhotoMigration]);
+            $pdo->commit();
+        } catch (Throwable $error) {
+            if ($pdo->inTransaction()) $pdo->rollBack();
+            throw $error;
+        }
+    }
+
     $rosterMigration = '20260905_charter_roster';
     $migrationCheck = $pdo->prepare('SELECT 1 FROM app_migrations WHERE migration_key = ?');
     $migrationCheck->execute([$rosterMigration]);
