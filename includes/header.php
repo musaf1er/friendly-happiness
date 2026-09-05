@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" href="assets/images/brand/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=New+Rocker&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/app.css?v=20260905-2">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
