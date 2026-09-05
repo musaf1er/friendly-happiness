@@ -1,0 +1,15 @@
+{
+  "name": "musaf1er/friendly-happiness",
+  "description": "Mischief Outlaws motorcycle club website",
+  "type": "project",
+  "require": {
+    "php": "^8.2",
+    "ext-pdo": "*",
+    "ext-pdo_mysql": "*",
+    "ext-fileinfo": "*"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}
