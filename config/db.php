@@ -10,6 +10,7 @@ function initialize_database(PDO $pdo): void
         "CREATE TABLE IF NOT EXISTS gallery (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, title VARCHAR(150) NOT NULL, image_path VARCHAR(255) NOT NULL, category ENUM('touring','clubhouse','bikes','events') NOT NULL DEFAULT 'touring', created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, INDEX idx_gallery_category (category)) ENGINE=InnoDB",
         "CREATE TABLE IF NOT EXISTS merchandise (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(150) NOT NULL, description TEXT NOT NULL, price DECIMAL(10,2) NOT NULL DEFAULT 0, image_path VARCHAR(255) NULL, stock INT NOT NULL DEFAULT 0, active TINYINT(1) NOT NULL DEFAULT 1, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB",
         "CREATE TABLE IF NOT EXISTS prospects (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, full_name VARCHAR(100) NOT NULL, nickname VARCHAR(50) NULL, phone_number VARCHAR(30) NOT NULL, bike_model VARCHAR(100) NOT NULL, reason_to_join TEXT NULL, status ENUM('pending','reviewed','accepted','rejected') NOT NULL DEFAULT 'pending', created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, INDEX idx_prospects_status (status)) ENGINE=InnoDB",
+        "CREATE TABLE IF NOT EXISTS app_migrations (migration_key VARCHAR(150) PRIMARY KEY, applied_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB",
     ];
     foreach ($statements as $statement) $pdo->exec($statement);
 
@@ -24,9 +25,13 @@ function initialize_database(PDO $pdo): void
     $seedSets = [
         'officers' => [
             "INSERT INTO officers (name,position,bio,image_path,sort_order) VALUES
-            ('Marcus Hale','President','Keeps the club pointed in the right direction and the standards in the room.','assets/images/officers/officer-president-demo.jpg',1),
-            ('Rhea Cole','Road Captain','Plans the miles, reads the weather, and makes sure everyone gets home.','assets/images/officers/officer-road-captain-demo.jpg',2),
-            ('Dane Mercer','Sergeant at Arms','Looks after the clubhouse and the quiet details that keep it working.','assets/images/officers/officer-saa-demo.jpg',3)"
+            ('Carrick Wainwright','President','Leads the charter and keeps the club moving with purpose.','assets/images/officers/officer-president-demo.jpg',1),
+            ('Joey Miller','Vice','Supports the president and keeps club operations aligned.','assets/images/officers/officer-road-captain-demo.jpg',2),
+            ('Kamari Pearson','Sergeant at Arms','Maintains order and supports the safety of the charter.','assets/images/officers/officer-saa-demo.jpg',3),
+            ('Hector Mendoza','Sergeant at Arms','Maintains order and supports the safety of the charter.','assets/images/officers/officer-saa-demo.jpg',4),
+            ('Julian Valentine','Enforcer','Upholds club standards and assists the charter officers.','assets/images/officers/officer-saa-demo.jpg',5),
+            ('Alexandria Axora','Treasurer','Oversees the charter records and club finances.','assets/images/officers/officer-road-captain-demo.jpg',6),
+            ('Ernesto Morales','Road Captain','Plans the route and keeps every ride organized.','assets/images/officers/officer-road-captain-demo.jpg',7)"
         ],
         'events' => [
             "INSERT INTO events (title,event_date,location,description,image_path,status) VALUES
@@ -55,6 +60,33 @@ function initialize_database(PDO $pdo): void
     foreach ($seedSets as $table => $queries) {
         if ((int)$pdo->query("SELECT COUNT(*) FROM {$table}")->fetchColumn() === 0) {
             foreach ($queries as $query) $pdo->exec($query);
+        }
+    }
+
+    $rosterMigration = '20260905_charter_roster';
+    $migrationCheck = $pdo->prepare('SELECT 1 FROM app_migrations WHERE migration_key = ?');
+    $migrationCheck->execute([$rosterMigration]);
+    if (!$migrationCheck->fetchColumn()) {
+        $pdo->beginTransaction();
+        try {
+            $pdo->exec('DELETE FROM officers');
+            $insertOfficer = $pdo->prepare('INSERT INTO officers (name, position, bio, image_path, sort_order) VALUES (?, ?, ?, ?, ?)');
+            $roster = [
+                ['Carrick Wainwright', 'President', 'Leads the charter and keeps the club moving with purpose.', 'assets/images/officers/officer-president-demo.jpg', 1],
+                ['Joey Miller', 'Vice', 'Supports the president and keeps club operations aligned.', 'assets/images/officers/officer-road-captain-demo.jpg', 2],
+                ['Kamari Pearson', 'Sergeant at Arms', 'Maintains order and supports the safety of the charter.', 'assets/images/officers/officer-saa-demo.jpg', 3],
+                ['Hector Mendoza', 'Sergeant at Arms', 'Maintains order and supports the safety of the charter.', 'assets/images/officers/officer-saa-demo.jpg', 4],
+                ['Julian Valentine', 'Enforcer', 'Upholds club standards and assists the charter officers.', 'assets/images/officers/officer-saa-demo.jpg', 5],
+                ['Alexandria Axora', 'Treasurer', 'Oversees the charter records and club finances.', 'assets/images/officers/officer-road-captain-demo.jpg', 6],
+                ['Ernesto Morales', 'Road Captain', 'Plans the route and keeps every ride organized.', 'assets/images/officers/officer-road-captain-demo.jpg', 7],
+            ];
+            foreach ($roster as $officer) $insertOfficer->execute($officer);
+            $recordMigration = $pdo->prepare('INSERT INTO app_migrations (migration_key) VALUES (?)');
+            $recordMigration->execute([$rosterMigration]);
+            $pdo->commit();
+        } catch (Throwable $error) {
+            if ($pdo->inTransaction()) $pdo->rollBack();
+            throw $error;
         }
     }
 }
