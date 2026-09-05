@@ -34,7 +34,7 @@
   .flash { @apply fixed right-6 top-[90px] z-30 border-l-4 border-crimson bg-bone px-4 py-3 text-sm text-ink; }
   .flash.error { @apply border-orange-700; }
   .hero { @apply relative flex min-h-[560px] items-center overflow-hidden border-b border-steel sm:min-h-[610px]; }
-  .hero-image { @apply absolute inset-0 bg-cover bg-center grayscale-[.35]; background-image: linear-gradient(90deg, rgba(11,11,11,.92) 12%, rgba(11,11,11,.62) 48%, rgba(11,11,11,.12)), url('../images/hero/hero-clubhouse-demo.jpg'); }
+  .hero-image { @apply absolute inset-0 bg-cover bg-center; background-color: #181818; background-image: linear-gradient(90deg, rgba(11,11,11,.68) 0%, rgba(11,11,11,.36) 48%, rgba(11,11,11,.08) 100%), url('../images/hero/hero-clubhouse-demo.jpg'); background-repeat: no-repeat; }
   .hero-content { @apply relative py-24; }
   .hero h1, .page-hero h1 { @apply m-0 max-w-3xl font-display text-[4.2rem] font-semibold uppercase leading-[.88] tracking-tight sm:text-7xl md:text-[6.5rem]; }
   .hero h1 em, .page-hero h1 em, h1 em { @apply not-italic text-crimson; }
@@ -49,7 +49,7 @@
   .intro-grid h2 span { @apply text-crimson; }
   .prose { @apply max-w-md self-end text-lg text-bone/70; }
   .text-link { @apply mt-5 inline-flex gap-4 border-b border-crimson pb-1 text-xs uppercase tracking-widest; }
-  .image-band { @apply flex min-h-[430px] items-center bg-cover bg-center; background-image: linear-gradient(90deg, rgba(11,11,11,.82), rgba(11,11,11,.12)), url('../images/clubhouse/clubhouse-garage-demo.jpg'); }
+  .image-band { @apply flex min-h-[430px] items-center bg-cover bg-center; background-color: #181818; background-image: linear-gradient(90deg, rgba(11,11,11,.58) 0%, rgba(11,11,11,.18) 72%, rgba(11,11,11,.05) 100%), url('../images/clubhouse/clubhouse-garage-demo.jpg'); background-repeat: no-repeat; }
   .image-band-copy { @apply py-20; }
   .image-band h2 { @apply mb-7 font-display text-5xl font-semibold uppercase leading-[.88] sm:text-7xl; }
   .events-preview, .event-list, .officers, .gallery-grid, .product-grid { @apply py-20 md:py-28; }
@@ -61,7 +61,7 @@
   .event-row time b { @apply text-3xl text-bone; }
   .event-row strong { @apply block font-display text-xl font-semibold uppercase sm:text-2xl; }
   .event-row small, .event-desc { @apply text-muted; }
-  .event-thumb { @apply mt-3 block h-14 w-24 bg-cover bg-center grayscale-[.3]; }
+  .event-thumb { @apply mt-3 block h-14 w-24 bg-cover bg-center; background-color: #181818; background-repeat: no-repeat; }
   .arrow { @apply text-right text-xl text-crimson; }
   .page-hero { @apply border-b border-steel py-24 md:py-32; }
   .lede { @apply mt-7 max-w-md text-lg text-bone/70; }
@@ -72,7 +72,7 @@
   .charter-list p { @apply col-start-2 m-0 max-w-lg text-muted; }
   .charter-note { @apply border-l-2 border-crimson pl-6 text-bone/70; }
   .officer-grid { @apply grid grid-cols-2 gap-5 md:grid-cols-3; }
-  .officer-image { @apply mb-4 aspect-[4/5] bg-cover bg-center grayscale transition hover:grayscale-0; }
+  .officer-image { @apply mb-4 aspect-[4/5] bg-cover bg-center transition; background-color: #181818; background-repeat: no-repeat; }
   .officer h3 { @apply m-0 font-display text-3xl font-semibold uppercase; }
   .officer p:last-child { @apply text-sm; }
   .filters { @apply mt-10 flex flex-wrap gap-5; }
@@ -80,12 +80,12 @@
   .filters .active { @apply border-crimson text-bone; }
   .gallery-grid { @apply grid grid-cols-2 gap-3 md:grid-cols-3; }
   .gallery-item { @apply bg-graphite p-0 text-left text-bone; }
-  .gallery-item img { @apply block h-full min-h-[150px] w-full object-cover grayscale-[.5] transition hover:scale-[1.02] hover:grayscale-0 sm:min-h-[220px]; }
+  .gallery-item img { @apply block h-full min-h-[150px] w-full object-cover transition hover:scale-[1.02] sm:min-h-[220px]; background-color: #181818; }
   .gallery-item:first-child { @apply col-span-2 md:row-span-2; }
   .gallery-item span { @apply block p-3 font-display text-sm uppercase tracking-wide; }
   .product-grid { @apply grid grid-cols-2 gap-5 md:grid-cols-3 md:gap-7; }
   .product { @apply border-t border-steel; }
-  .product-image { @apply aspect-square bg-cover bg-center grayscale-[.55]; }
+  .product-image { @apply aspect-square bg-cover bg-center; background-color: #181818; background-repeat: no-repeat; }
   .product-meta { @apply py-5; }
   .product h2 { @apply m-0 font-display text-3xl font-semibold uppercase; }
   .product strong { @apply mt-4 block text-white; }
@@ -97,7 +97,7 @@
   .form-aside { @apply border-t border-crimson pt-5 text-bone/70; }
   .detail { @apply py-24 md:py-32; }
   .detail h1 { @apply m-0 max-w-4xl font-display text-6xl font-semibold uppercase leading-[.88] sm:text-8xl; }
-  .event-detail-image { @apply mt-10 aspect-video max-w-4xl bg-cover bg-center grayscale-[.25]; }
+  .event-detail-image { @apply mt-10 aspect-video max-w-4xl bg-cover bg-center; background-color: #181818; background-repeat: no-repeat; }
   .detail-body { @apply mt-12 max-w-xl text-lg text-bone/70 md:ml-[16%]; }
   .empty { @apply border-t border-steel py-7 text-muted; }
   dialog { @apply max-w-[90vw] border-0 bg-ink p-0; }
