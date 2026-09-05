@@ -1,0 +1,11 @@
+{
+  "name": "mischief-outlaws-mc",
+  "private": true,
+  "scripts": {
+    "dev": "tailwindcss -i ./src/input.css -o ./assets/css/app.css --watch",
+    "build": "tailwindcss -i ./src/input.css -o ./assets/css/app.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}
