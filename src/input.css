@@ -75,6 +75,31 @@
   .officer-image { @apply mb-4 aspect-[4/5] bg-cover bg-center transition; background-color: #181818; background-repeat: no-repeat; }
   .officer h3 { @apply m-0 font-display text-3xl font-semibold uppercase; }
   .officer p:last-child { @apply text-sm; }
+  .hierarchy-key { @apply hidden max-w-xs text-right font-display text-xs uppercase tracking-[.14em] text-muted md:block; }
+  .mc-tree { @apply relative mt-12 pb-4; }
+  .mc-tree-level { @apply relative mx-auto max-w-xl; }
+  .mc-tree-level + .mc-tree-level { @apply mt-12; }
+  .mc-tree-level + .mc-tree-level::before { content: ''; @apply absolute -top-12 left-1/2 h-12 w-px bg-crimson/70; }
+  .tree-card { @apply overflow-hidden border border-steel bg-graphite; }
+  .tree-card .officer-image { @apply mb-0 aspect-[16/9] w-full; }
+  .tree-card .officer-copy { @apply border-t border-steel p-5; }
+  .tree-card .eyebrow { @apply mb-2 text-crimson; }
+  .tree-card h3 { @apply text-2xl; }
+  .tree-card .muted { @apply mb-0 mt-3; }
+  .tree-card-primary { @apply border-crimson; box-shadow: 0 0 0 1px rgba(160, 24, 32, .18), 0 24px 70px rgba(0, 0, 0, .28); }
+  .tree-card-secondary { @apply mx-auto max-w-md; }
+  .mc-tree-branches { @apply relative mt-16 grid gap-7 lg:grid-cols-3; }
+  .mc-tree-branches::before { content: ''; @apply absolute -top-8 left-[16.666%] right-[16.666%] hidden h-px bg-steel lg:block; }
+  .mc-branch { @apply relative border-t border-steel pt-5; }
+  .mc-branch::before { content: ''; @apply absolute -top-8 left-1/2 h-8 w-px bg-steel; }
+  .mc-branch header { @apply mb-5 flex items-center gap-4 border-b border-steel pb-5; }
+  .mc-branch header > span { @apply grid h-10 w-10 shrink-0 place-items-center border border-crimson font-display text-sm text-crimson; }
+  .mc-branch header p { @apply m-0 font-display text-xl font-semibold uppercase tracking-wide; }
+  .mc-branch header small { @apply text-xs uppercase tracking-wider text-muted; }
+  .mc-branch-members { @apply grid gap-4; }
+  .mc-branch .tree-card { @apply grid grid-cols-[96px_1fr]; }
+  .mc-branch .officer-image { @apply h-full min-h-[150px] w-full; }
+  .mc-branch .officer-copy { @apply border-l border-t-0 p-4; }
   .filters { @apply mt-10 flex flex-wrap gap-5; }
   .filters a { @apply border-b border-transparent pb-1 font-display text-sm uppercase text-muted; }
   .filters .active { @apply border-crimson text-bone; }
